@@ -4,6 +4,7 @@ Schedule Microsoft Defender full scans via Windows Task Scheduler (System). Intu
 # MS-Defender Full Scan Auto Script
 
 Windows 환경에서 Microsoft Defender Full Scan을 작업 스케줄러(SYSTEM 계정)로 등록/운영하기 위한 PowerShell 자동화 스크립트입니다.
+
 (운영 서버/클라이언트에 동일하게 적용 가능하도록 설계)
 
 ## What it does
