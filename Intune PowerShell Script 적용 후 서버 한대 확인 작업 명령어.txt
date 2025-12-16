@@ -1,0 +1,57 @@
+Full Scan 실행 명령어 :
+
+PS C:\sec> C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\sec\Intune_Defender_MonthlyFullScan_v5.ps1
+OK: Task created => \Defender-Monthly-FullScan-FirstSat-0200
+
+디펜더 Full Scan 예약 시간대 확인 명령어 : 
+
+PS C:\sec> schtasks /Query /TN "\Defender-Monthly-FullScan-FirstSat-0200" /V /FO LIST
+
+Folder: \
+HostName:                             AVD-DEV-35
+TaskName:                             \Defender-Monthly-FullScan-FirstSat-0200
+Next Run Time:                        1/3/2026 2:00:00 AM
+Status:                               Ready
+Logon Mode:                           Interactive/Background
+Last Run Time:                        11/30/1999 12:00:00 AM
+Last Result:                          267011
+Author:                               QXP\dy.park
+Task To Run:                          C:\ProgramData\DefenderScan\run_fullscan.cmd
+Start In:                             N/A
+Comment:                              N/A
+Scheduled Task State:                 Enabled
+Idle Time:                            Disabled
+Power Management:                     Stop On Battery Mode, No Start On Batteries
+Run As User:                          SYSTEM
+Delete Task If Not Rescheduled:       Disabled
+Stop Task If Runs X Hours and X Mins: 72:00:00
+Schedule:                             Scheduling data is not available in this format.
+Schedule Type:                        Monthly
+Start Time:                           2:00:00 AM
+Start Date:                           12/15/2025
+End Date:                             N/A
+Days:                                 First SAT
+Months:                               Every month
+Repeat: Every:                        Disabled
+Repeat: Until: Time:                  Disabled
+Repeat: Until: Duration:              Disabled
+Repeat: Stop If Still Running:        Disabled
+PS C:\sec> type "C:\ProgramData\DefenderScan\deploy_task_v5.log"
+[2025-12-15 17:26:11] RunnerCMD deployed => C:\ProgramData\DefenderScan\run_fullscan.cmd
+[2025-12-15 17:26:11] Creating task => \Defender-Monthly-FullScan-FirstSat-0200
+[2025-12-15 17:26:11] Create output: SUCCESS: The scheduled task "\Defender-Monthly-FullScan-FirstSat-0200" has successfully been created.
+[2025-12-15 17:26:11] Verify output:  Folder: \ HostName:                             AVD-DEV-35 TaskName:                             \Defender-Monthly-FullScan-FirstSat-0200 Next Run Time:                        1/3/2026 2:00:00 AM Status:                               Ready Logon Mode:                           Interactive/Background Last Run Time:                        11/30/1999 12:00:00 AM Last Result:                          267011 Author:                               QXP\dy.park Task To Run:                          C:\ProgramData\DefenderScan\run_fullscan.cmd  Start In:                             N/A Comment:                              N/A Scheduled Task State:                 Enabled Idle Time:                            Disabled Power Management:                     Stop On Battery Mode, No Start On Batteries Run As User:                          SYSTEM Delete Task If Not Rescheduled:       Disabled Stop Task If Runs X Hours and X Mins: 72:00:00 Schedule:                             Scheduling data is not available in this format. Schedule Type:                        Monthly Start Time:                           2:00:00 AM Start Date:                           12/15/2025 End Date:                             N/A Days:                                 First SAT Months:                               Every month Repeat: Every:                        Disabled Repeat: Until: Time:                  Disabled Repeat: Until: Duration:              Disabled Repeat: Stop If Still Running:        Disabled
+
+롤백 했을 경우 :
+(테스트 테스크 삭제 / 본 태스크 삭제 완료 / C:\ProgramData\DefenderScan 폴더 삭제)
+
+PS C:\sec> schtasks /Delete /TN "\_TEST_Task" /F
+SUCCESS: The scheduled task "\_TEST_Task" was successfully deleted.
+PS C:\sec> schtasks /Delete /TN "\Defender-Monthly-FullScan-FirstSat-0200" /F
+SUCCESS: The scheduled task "\Defender-Monthly-FullScan-FirstSat-0200" was successfully deleted.
+PS C:\sec> Remove-Item "C:\ProgramData\DefenderScan" -Recurse -Force
+PS C:\sec>
+
+스크립트 내에서 시간 대 변경 시 :
+
+/ST 05:00 # 이렇게 바꾸면 됨..
