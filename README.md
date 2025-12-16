@@ -34,7 +34,9 @@ Windows 환경에서 Microsoft Defender Full Scan을 작업 스케줄러(SYSTEM 
  ### Rollback (Clean Remove)
 
  schtasks /Delete /TN "\_TEST_Task" /F
+ 
  schtasks /Delete /TN "\Defender-Monthly-FullScan-FirstSat-0200" /F
+ 
  Remove-Item "C:\ProgramData\DefenderScan" -Recurse -Force
  
 
